@@ -1,2 +1,0 @@
-# radxQA
-Daily Phantom QA
