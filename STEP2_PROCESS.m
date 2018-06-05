@@ -43,7 +43,7 @@
 QA_dir = ['/blazepool' filesep 'radx' filesep 'QA'];
 NIFTI_dir = [QA_dir filesep 'NIFTIS'];
 OUT_dir = [QA_dir filesep 'PROCESSED'];
-addpath(genpath([QA_dir filesep 'EXTRA']));
+addpath(genpath([QA_dir filesep 'radxQA']));
 
 if exist([OUT_dir filesep 'Results_ALL.mat'], 'file') == 2
     load([OUT_dir filesep 'Results_ALL.mat']);
