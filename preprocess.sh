@@ -4,7 +4,7 @@
 # run mcverter on each 
 # move nii and txt to NIFTIS
 # delete folder in NEWDATA
-
+#
 # loop through all folders in NEWDATA directory
 # for i in $(find $PWD/NEWDATA -maxdepth 1 -type d); 
 for i in $(find /Volumes/GRAID/BlazeFake/QA/NEWDATA/* -type d -mindepth 1); do
