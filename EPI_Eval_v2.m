@@ -54,23 +54,23 @@ Shewart_all(rownum,:) = Shewarts_sorted;
 
 %subplot(3,3,1);
 plot(t1_sorted,Val_sorted,'o','MarkerEdgeColor','k','MarkerFaceColor',[1 1 1],'MarkerSize',ms); hold on;
-line([min(t2)-1 max(t2)+1], [190 190],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [190 190],'color',[0 0 0],'linestyle','--');
 plot(t1_sorted(Shewarts_sorted==1),Val_sorted(Shewarts_sorted==1),'o','MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',ms); hold on;
 plot(t1_sorted(Shewarts_sorted>1),Val_sorted(Shewarts_sorted>1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('Mean Phantom Diameter'); title('Geometric Accuracy');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([min(0.98*min(GA),0.98*188) max(1.02*max(GA),1.02*192)])
 set(gca,'FontSize',fs); grid off;
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_1.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_1.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_1.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_1.png']); pause(1);
 close all
@@ -89,6 +89,10 @@ for i2 = 30:length(Val_sorted)
 end
 Shewart_all(rownum,:) = Shewarts_sorted;
 
+if length(Dist_sorted)<(2*k+1)
+    k = floor((length(Dist_sorted)-1)/2);
+end
+
 %subplot(3,3,2);
 plot(t1_sorted,Val_sorted,'o','MarkerEdgeColor','k','MarkerFaceColor',[1 1 1],'MarkerSize',ms); hold on;
 s = movingstd(Val_sorted,k,[]); s(1:7)=s(8); s(end-7:end)=s(end-7);
@@ -97,19 +101,19 @@ plot(t1_sorted,M,'k-'); plot(t1_sorted,M-2*s,'k--'); plot(t1_sorted,M+2*s,'k--')
 plot(t1_sorted(Shewarts_sorted==1),Val_sorted(Shewarts_sorted==1),'o','MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',ms); hold on;
 plot(t1_sorted(Shewarts_sorted>1),Val_sorted(Shewarts_sorted>1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('% Distortion'); title('Geometric Distortion');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([0 max(1.1*max(Dist),5)]);
 set(gca,'FontSize',fs); grid off;
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_2.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_2.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_2.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_2.png']); pause(1);
 close all
@@ -122,22 +126,22 @@ PIU_fail = Val_sorted<.82;
 
 %subplot(3,3,3);
 plot(t1_sorted,Val_sorted,'o','MarkerEdgeColor','k','MarkerFaceColor',[1 1 1],'MarkerSize',ms); hold on;
-line([min(t2)-1 max(t2)+1], [.82 .82],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [.82 .82],'color',[0 0 0],'linestyle','--');
 plot(t1_sorted(PIU_fail==1),Val_sorted(PIU_fail==1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('% Image Uniformity'); title('Image Intensity Uniformity');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([0 1]);
 set(gca,'FontSize',fs); grid off;
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_3.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_3.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_3.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_3.png']); pause(1);
 close all
@@ -150,22 +154,22 @@ PSG_fail = Val_sorted>.025;
 
 %subplot(3,3,4);
 plot(t1_sorted,Val_sorted,'o','MarkerEdgeColor','k','MarkerFaceColor',[1 1 1],'MarkerSize',ms); hold on;
-line([min(t2)-1 max(t2)+1], [.025 .025],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [.025 .025],'color',[0 0 0],'linestyle','--');
 plot(t1_sorted(PSG_fail==1),Val_sorted(PSG_fail==1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('% Signal Ghosting'); title('Ghosting Ratio');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([0 max(1.02*max(PSG),1.1*.025)]);
 set(gca,'FontSize',fs); grid off;
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_4.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_4.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_4.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_4.png']); pause(1);
 close all
@@ -190,18 +194,18 @@ plot(t1_sorted,M,'k-'); plot(t1_sorted,M-2*s,'k--'); plot(t1_sorted,M+2*s,'k--')
 plot(t1_sorted(Shewarts_sorted==1),Val_sorted(Shewarts_sorted==1),'o','MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',ms); hold on;
 plot(t1_sorted(Shewarts_sorted>1),Val_sorted(Shewarts_sorted>1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('SNR'); title('Signal To Noise Ratio');
-xlim([min(t2)-1 max(t2)+1]);
+xlim([min(t1)-1 max(t1)+1]);
 set(gca,'FontSize',fs); grid off;
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_5.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_5.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_5.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_5.png']); pause(1);
 close all
@@ -231,18 +235,18 @@ plot(t1_sorted_SFNR,M,'k-'); plot(t1_sorted_SFNR,M-2*s,'k--'); plot(t1_sorted_SF
 plot(t1_sorted_SFNR(Shewart_SFNR==1),Val_sorted(Shewart_SFNR==1),'o','MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',ms); hold on;
 plot(t1_sorted_SFNR(Shewart_SFNR>1),Val_sorted(Shewart_SFNR>1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('SFNR'); title('Signal To Flunctuation Noise Ratio');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 set(gca,'FontSize',fs); grid off;
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_6.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_6.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_6.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_6.png']); pause(1);
 close all
@@ -272,19 +276,19 @@ plot(t1_sorted_PF,M,'k-'); plot(t1_sorted_PF,M-2*s,'k--'); plot(t1_sorted_PF,M+2
 plot(t1_sorted_PF(Shewart_PF==1),Val_sorted(Shewart_PF==1),'o','MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',ms); hold on;
 plot(t1_sorted_PF(Shewart_PF>1),Val_sorted(Shewart_PF>1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('% Fluctuation'); title('Percent Fluctuation');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 set(gca,'FontSize',fs); grid off;
 ylim([0 .4])
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_7.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_7.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_7.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_7.png']); pause(1);
 close all
@@ -314,19 +318,19 @@ plot(t1_sorted_Drift,M,'k-'); plot(t1_sorted_Drift,M-2*s,'k--'); plot(t1_sorted_
 plot(t1_sorted_Drift(Shewart_Drift==1),Val_sorted(Shewart_Drift==1),'o','MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',ms); hold on;
 plot(t1_sorted_Drift(Shewart_Drift>1),Val_sorted(Shewart_Drift>1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('Drift'); title('Drift');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 set(gca,'FontSize',fs); grid off;
 ylim([0 2])
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_8.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_8.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_8.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_8.png']); pause(1);
 close all
@@ -356,18 +360,18 @@ plot(t1_sorted_RDC,M,'k-'); plot(t1_sorted_RDC,M-2*s,'k--'); plot(t1_sorted_RDC,
 plot(t1_sorted_RDC(Shewart_RDC==1),Val_sorted(Shewart_RDC==1),'o','MarkerEdgeColor','k','MarkerFaceColor','b','MarkerSize',ms); hold on;
 plot(t1_sorted_RDC(Shewart_RDC>1),Val_sorted(Shewart_RDC>1),'o','MarkerEdgeColor','k','MarkerFaceColor','r','MarkerSize',ms); hold on;
 ylabel('RDC'); title('Radius of Decorrelation');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 set(gca,'FontSize',fs); grid off;
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_All_9.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_100_9.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_30_9.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'EPI_7_9.png']); pause(1);
 close all
