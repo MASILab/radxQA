@@ -33,24 +33,24 @@ for i=1:length(GA)
     if abs(190-GA(i))>2; col = [1 0 0]; else col = [0 1 0]; end
     plot(t1(i),GA(i),'Marker','o','MarkerEdgeColor','k','MarkerFaceColor',col,'MarkerSize',ms); hold on;
 end
-line([min(t2)-1 max(t2)+1], [188 188],'color',[0 0 0],'linestyle','--');
-line([min(t2)-1 max(t2)+1], [192 192],'color',[0 0 0],'linestyle','--');
-line([min(t2)-1 max(t2)+1], [190 190],'color',[0 0 0],'linestyle','-');
+line([min(t1)-1 max(t1)+1], [188 188],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [192 192],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [190 190],'color',[0 0 0],'linestyle','-');
 ylabel('Mean Phantom Diameter'); title('Geometric Accuracy');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([min(0.98*min(GA),0.98*188) max(1.02*max(GA),1.02*192)])
 set(gca,'FontSize',fs); grid off;
 textGA = t1(GA<188 | GA>192);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_1.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_1.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_1.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_1.png']); pause(1);
 close all
@@ -63,6 +63,11 @@ plot(t1_sorted,Dist_sorted,'o','MarkerEdgeColor','k','MarkerFaceColor',[1 1 1],'
 % for i=1:length(Dist)
 %     plot(t1_sorted(i),Dist_sorted(i),'Marker','o','MarkerEdgeColor','k','MarkerFaceColor',[1 1 1],'MarkerSize',ms); hold on;
 % end
+
+if length(Dist_sorted)<(2*k+1)
+    k = floor((length(Dist_sorted)-1)/2);
+end
+
 s = movingstd(Dist_sorted,k,[]);
 M = conv(Dist_sorted, ones(k,1)/k, 'same');
 s(1:7)=s(8);s(end-7:end)=s(end-7);
@@ -71,20 +76,20 @@ plot(t1_sorted,M,'k-');
 plot(t1_sorted,M-2*s,'k--');
 plot(t1_sorted,M+2*s,'k--');
 ylabel('% Distortion'); title('Geometric Distortion');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([0 max(1.1*max(Dist),5)]);
 set(gca,'FontSize',fs); grid off;
 textDist = t1(Dist_sorted<M-2*s | Dist_sorted>M+2*s);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_2.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_2.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_2.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_2.png']); pause(1);
 close all
@@ -95,22 +100,22 @@ for i=1:length(HCSR)
     if HCSR(i)>1; col = [1 0 0]; else col = [0 1 0]; end
     plot(t1(i),HCSR(i),'Marker','o','MarkerEdgeColor','k','MarkerFaceColor',col,'MarkerSize',ms); hold on;
 end
-line([min(t2)-1 max(t2)+1], [1.05 1.05],'color',[1 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [1.05 1.05],'color',[1 0 0],'linestyle','--');
 ylabel('Worst-Case Resolution'); title('High Contrast Spatial Resolution');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([.89 1.12])
 set(gca,'FontSize',fs); grid off;
 textHCSR = t1(HCSR>1.05);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_3.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_3.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_3.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_3.png']); pause(1);
 close all
@@ -121,24 +126,24 @@ for i=1:length(SliceThick)
     if abs(5-SliceThick(i))>.7; col = [1 0 0]; else col = [0 1 0]; end
     plot(t1(i),SliceThick(i),'Marker','o','MarkerEdgeColor','k','MarkerFaceColor',col,'MarkerSize',ms); hold on;
 end
-line([min(t2)-1 max(t2)+1], [4.3 4.3],'color',[0 0 0],'linestyle','--');
-line([min(t2)-1 max(t2)+1], [5.7 5.7],'color',[0 0 0],'linestyle','--');
-line([min(t2)-1 max(t2)+1], [5 5],'color',[0 0 0],'linestyle','-');
+line([min(t1)-1 max(t1)+1], [4.3 4.3],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [5.7 5.7],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [5 5],'color',[0 0 0],'linestyle','-');
 ylabel('Slice Thickness'); title('Slice Thickness Accuracy');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([min(0.98*min(SliceThick),0.98*4.2) max(1.02*max(SliceThick),1.02*5.8)])
 set(gca,'FontSize',fs); grid off;
 textST = t1(SliceThick<4.3 | SliceThick>5.7);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_4.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_4.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_4.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_4.png']); pause(1);
 close all
@@ -149,24 +154,24 @@ for i=1:length(SlicePos)
     if abs(0-SlicePos(i))>2.5; col = [1 0 0]; else col = [0 1 0]; end
     plot(t1(i),SlicePos(i),'Marker','o','MarkerEdgeColor','k','MarkerFaceColor',col,'MarkerSize',ms); hold on;
 end
-line([min(t2)-1 max(t2)+1], [-2.5 -2.5],'color',[0 0 0],'linestyle','--');
-line([min(t2)-1 max(t2)+1], [2.5 2.5],'color',[0 0 0],'linestyle','--');
-line([min(t2)-1 max(t2)+1], [0 0],'color',[0 0 0],'linestyle','-');
+line([min(t1)-1 max(t1)+1], [-2.5 -2.5],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [2.5 2.5],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [0 0],'color',[0 0 0],'linestyle','-');
 ylabel('Slice Position'); title('Slice Position Accuracy');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([min(1.1*min(SlicePos),1.1*-2.5) max(1.1*max(SlicePos),1.1*2.5)])
 set(gca,'FontSize',fs); grid off;
 textSP = t1(SlicePos<-2.5 | SlicePos>2.5);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_5.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_5.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_5.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_5.png']); pause(1);
 close all
@@ -177,22 +182,22 @@ for i=1:length(PIU)
     if PIU(i)<.82; col = [1 0 0]; else col = [0 1 0]; end
     plot(t1(i),PIU(i),'Marker','o','MarkerEdgeColor','k','MarkerFaceColor',col,'MarkerSize',ms); hold on;
 end
-line([min(t2)-1 max(t2)+1], [.82 .82],'color',[1 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [.82 .82],'color',[1 0 0],'linestyle','--');
 ylabel('% Integral Uniformity'); title('Image Intensity Uniformity');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([min(0.98*min(PIU),0.90*.82) max(1.02*max(PIU),1.1*.82)])
 set(gca,'FontSize',fs); grid off;
 textPIU = t1(PIU<.82);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_6.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_6.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_6.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_6.png']); pause(1);
 close all
@@ -203,22 +208,22 @@ for i=1:length(PSG)
     if PSG(i)>.025; col = [1 0 0]; else col = [0 1 0]; end
     plot(t1(i),PSG(i),'Marker','o','MarkerEdgeColor','k','MarkerFaceColor',col,'MarkerSize',ms); hold on;
 end
-line([min(t2)-1 max(t2)+1], [.025 .025],'color',[1 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [.025 .025],'color',[1 0 0],'linestyle','--');
 ylabel('% Signal Ghosting'); title('Ghosting Ratio');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([0 max(1.02*max(PSG),1.1*.025)])
 set(gca,'FontSize',fs); grid off;
 textG = t1(PSG>.025);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_7.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_7.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_7.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_7.png']); pause(1);
 close all
@@ -229,22 +234,22 @@ for i=1:length(LCOD)
     if LCOD(i)<37; col = [1 0 0]; else col = [0 1 0]; end
     plot(t1(i),LCOD(i),'Marker','o','MarkerEdgeColor','k','MarkerFaceColor',col,'MarkerSize',ms); hold on;
 end
-line([min(t2)-1 max(t2)+1], [36.5 36.5],'color',[0 0 0],'linestyle','--');
+line([min(t1)-1 max(t1)+1], [36.5 36.5],'color',[0 0 0],'linestyle','--');
 ylabel('# Spokes Detected'); title('Low Contrast Object Detectability');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 ylim([min(0.98*min(LCOD),0.90*37) 40])
 set(gca,'FontSize',fs); grid off;
 textLC = t1(LCOD<36.5);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_8.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_8.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_8.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_8.png']); pause(1);
 close all
@@ -265,20 +270,20 @@ plot(t1_sorted,M,'k-');
 plot(t1_sorted,M-2*s,'k--');
 plot(t1_sorted,M+2*s,'k--');
 ylabel('SNR'); title('Signal To Noise Ratio');
-xlim([min(t2)-1 max(t2)+1]); 
+xlim([min(t1)-1 max(t1)+1]); 
 %ylim([0 max(1.1*max(Dist),5)]);
 set(gca,'FontSize',fs); grid off;
 textSNR = t1(SNR<M-2*s | SNR>M+2*s);
 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_All_9.png']); pause(1);
-xlim([max(t2)-99 max(t2)]); 
+xlim([max(t1)-99 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_100_9.png']); pause(1);
-xlim([max(t2)-30 max(t2)]);
+xlim([max(t1)-30 max(t1)]);
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_30_9.png']); pause(1);
-xlim([max(t2)-6 max(t2)]); 
+xlim([max(t1)-6 max(t1)]); 
 drawnow; pause(1);
 print_current_figure(200,[RESULTS_dir filesep 'T1_7_9.png']); pause(1);
 close all

@@ -33,10 +33,10 @@ else
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % code goes here
         
-        
+        disp('start code')
         % load s_all
         load([OUT_dir filesep 'Results_ALL.mat']);
-        
+        disp('results loaded correctly')
         % get all dates
         Dates = zeros(size(s_all,2),1);
         for i=1:size(s_all,2)
@@ -44,19 +44,23 @@ else
             %Dates(i) = datenum(s_all(i).scan_date,'yyyyMMdd'); % this doesn't handle year change well?
         end
         
+	disp('dates sorted')
+
         %% T1 axial
         %T1_Axial_100days(s_all,Dates,RESULTS_dir);
         %T1_Axial_AllTime(s_all,RESULTS_dir);
         %T1_Axial_30days(s_all,Dates,RESULTS_dir);
         %T1_Axial_7days(s_all,Dates,RESULTS_dir);
         T1_Axial_Eval_v2(s_all,Dates,RESULTS_dir);
+	disp('ran T1 Axial Eval all days')
         T1_Axial_1days_v2(s_all,Dates,RESULTS_dir,OUT_dir);
-        
+        disp('T1 axial ran')
         %% EPI
         
         EPI_Eval_v2(s_all,Dates,RESULTS_dir);
+	disp('ran EPI eval all days')
         EPI_1days_v2(s_all,Dates,RESULTS_dir,OUT_dir);
-        
+        disp('EPI evaluted')
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%
         % delete running.txt file
@@ -64,6 +68,7 @@ else
     catch
         % if failed, still delete file
         % delete running.txt file
+	disp('failed for some reason')
         delete([RESULTS_dir filesep 'STEP3_running.txt'])
     end
 end % if running.txt exists
