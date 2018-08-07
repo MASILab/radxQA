@@ -45,6 +45,23 @@ NIFTI_dir = [QA_dir filesep 'NIFTIS'];
 OUT_dir = [QA_dir filesep 'PROCESSED'];
 addpath(genpath([QA_dir filesep 'radxQA']));
 
+%%%%%%%%%%%
+
+if exist([OUT_dir filesep 'running.txt'], 'file') == 2
+    disp('another instance running')
+    exit
+else
+    disp('program will run...')
+    try
+        % create text file running.txt
+        fileID = fopen([OUT_dir filesep 'running.txt'],'w');
+        fprintf(fileID,'this is running');
+        fclose(fileID);
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % code goes here
+
+
+
 if exist([OUT_dir filesep 'Results_ALL.mat'], 'file') == 2
     load([OUT_dir filesep 'Results_ALL.mat']);
     s_all_index = size(s_all,2)+1;
@@ -343,6 +360,17 @@ for ii = 1:length(fileNames)
     
 end
 
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%
+        % delete running.txt file
+        delete([OUT_dir filesep 'running.txt'])
+    catch
+        % if failed, still delete file
+        % delete running.txt file
+        delete([OUT_dir filesep 'running.txt'])
+    end
+end % if running.txt exists
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
