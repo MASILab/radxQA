@@ -1,5 +1,10 @@
 function [Shewart,message] = ShewartEval(Val_sorted)
 
+
+if length(Val_sorted)<24;
+    Shewart = 0; message = 'Not Enough Data points';
+else
+
 % 1: mean+/- 2D of previous measures
 if abs(Val_sorted(end) - mean(Val_sorted(end-20:end-1))) > 2*std(Val_sorted(end-20:end-1))
     Shewart = 1; message = 'Measure out of 2*SD limits';
@@ -30,6 +35,6 @@ if Shewart == 1
     
 end
 
-
+end
 
 end
