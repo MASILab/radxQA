@@ -49,20 +49,20 @@ data = {'Scan Name',s.name,'N/A'; ...
     'SNR',num2str(s.SNR), 'N/A'}   ;   
 
 close all;
-f = figure(5); %set(gcf, 'units','normalized','outerposition',[0.1 0.05 .9 .9]); 
+%f = figure(5); %set(gcf, 'units','normalized','outerposition',[0.1 0.05 .9 .9]); 
 %set(gcf, 'units','normalized','outerposition',[.13 .11 .3 .315]);
-t = uitable(f,'Data',data,'ColumnWidth',{100,300,70})
+%t = uitable(f,'Data',data,'ColumnWidth',{100,300,70})
 %subplot(1,1,1),plot(3)
 %pos = get(subplot(1,1,1),'position');
 %delete(subplot(1,1,1));
-pos = [0 0 1 1]
-set(t,'units','normalized')
-set(t,'position',pos)
-axis off; 
+%pos = [0 0 1 1]
+%set(t,'units','normalized')
+%set(t,'position',pos)
+%axis off; 
 
-drawnow; pause(1);
-print_current_figure(200,[RESULTS_dir filesep 'T1_Single_Table.png']); pause(1);
-close all;
+%drawnow; pause(1);
+%print_current_figure(200,[RESULTS_dir filesep 'T1_Single_Table.png']); pause(1);
+%close all;
 
 figure; imagesc(A); axis equal; axis off; title('SNR ROIs'); colormap gray;
 drawnow; pause(1);
