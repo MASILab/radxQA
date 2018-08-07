@@ -89,8 +89,8 @@ for i2 = 30:length(Val_sorted)
 end
 Shewart_all(rownum,:) = Shewarts_sorted;
 
-if length(Dist_sorted)<(2*k+1)
-    k = floor((length(Dist_sorted)-1)/2);
+if length(Val_sorted)<(2*k+1)
+    k = floor((length(Val_sorted)-1)/2);
 end
 
 %subplot(3,3,2);
